@@ -65,7 +65,10 @@ public final class IP {
      * @return boolean
      */
     public static boolean isValidIPV4(InetAddress ip) {
-        return ip != null && InetAddressUtils.isIPv4Address(ip.getHostAddress());
+        if (ip == null) {
+            return false;
+        }
+        return InetAddressUtils.isIPv4Address(ip.getHostAddress());
     }
 
     /**
@@ -95,6 +98,9 @@ public final class IP {
      * @return boolean
      */
     public static boolean isValidIPV6(InetAddress ip) {
-        return ip != null && InetAddressUtils.isIPv6Address(ip.getHostAddress());
+        if (ip == null) {
+            return false;
+        }
+        return InetAddressUtils.isIPv6Address(ip.getHostAddress());
     }
 }

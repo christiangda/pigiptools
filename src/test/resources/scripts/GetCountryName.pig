@@ -1,6 +1,6 @@
 REGISTER ./dist/.jar
 
---DEFINE GetCountryName com.slashdevops.pig.geoip.GetCountryName(ipv4db,ipv6db);
+DEFINE GetCountryName com.slashdevops.pig.geoip.GetCountryName(ipv4db,ipv6db);
 
 data = LOAD 'input' AS (ip:chararray);
 
