@@ -1,6 +1,6 @@
-REGISTER ./dist/.jar
+REGISTER $LIBRARY_PATH/pigiptools-tests.jar
 
-DEFINE GetCountryName com.slashdevops.pig.geoip.GetCountryName(ipv4db,ipv6db);
+DEFINE CountryName com.github.christiangda.pig.geoip.GetCountryName('$IPV4_GEODB_PATH','$IPV6_GEODB_PATH');
 
 data = LOAD 'input' AS (ip:chararray);
 

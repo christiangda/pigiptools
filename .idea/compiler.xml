@@ -22,12 +22,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="PigIpTools" />
         <module name="SlashDevOpsPigGeoIP" />
+      </profile>
+      <profile default="false" name="Annotation profile for PigIpTools" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="PigIpTools" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="PigIpTools" target="1.5" />
+      <module name="PigIpTools" target="1.6" />
       <module name="SlashDevOpsPigGeoIP" target="1.5" />
     </bytecodeTargetLevel>
   </component>

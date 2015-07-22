@@ -1,4 +1,4 @@
-package com.github.christiangda.utils.ip.test;
+package com.github.christiangda.utils.ip;
 
 import com.github.christiangda.utils.ip.IP;
 import org.junit.Test;
