@@ -12,10 +12,6 @@ public class GeoCoding {
 
     private HashMap<String, LookupService> ls = new HashMap<String, LookupService>();
 
-    public GeoCoding(String DbFilePath) throws IOException {
-        this.ls.put("unknown", new LookupService(DbFilePath, LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE));
-    }
-
     public GeoCoding(String ipv4DbFilePath, String ipv6DbFilePath) throws IOException {
         this.ls.put("ipv4", new LookupService(ipv4DbFilePath, LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE));
         this.ls.put("ipv6", new LookupService(ipv6DbFilePath, LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE));

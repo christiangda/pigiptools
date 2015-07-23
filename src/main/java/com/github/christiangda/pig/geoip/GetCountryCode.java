@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GetCountryName extends EvalFunc<String> {
+public class GetCountryCode extends EvalFunc<String> {
 
     private GeoCoding geo;
     private HashMap<String, String> dbFilesPaths = new HashMap<String, String>();
@@ -23,7 +23,7 @@ public class GetCountryName extends EvalFunc<String> {
      * @param IPV4DBFilePath String
      * @param IPV6DBFilePath String
      */
-    public GetCountryName(final String IPV4DBFilePath, final String IPV6DBFilePath) {
+    public GetCountryCode(final String IPV4DBFilePath, final String IPV6DBFilePath) {
 
         this.dbFilesPaths.put("ipv4", IPV4DBFilePath);
         this.dbFilesPaths.put("ipv6", IPV6DBFilePath);
@@ -49,7 +49,7 @@ public class GetCountryName extends EvalFunc<String> {
 
         // Get geoip information
         try {
-            String result = this.geo.getCountryName(strAddress);
+            String result = this.geo.getCountryCode(strAddress);
 
             // replace "--" and "N/A" to null, better for pig
             if (result == null || result.equals("--") || result.equals("N/A")) {

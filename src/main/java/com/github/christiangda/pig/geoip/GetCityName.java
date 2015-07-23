@@ -14,9 +14,9 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountryCode extends EvalFunc<String> {
+public class GetCityName extends EvalFunc<String> {
 
-    private static String DEFAULT_DB_LOCATION = "/usr/local/GeoIP/GeoIP.dat";
+    private static String DEFAULT_DB_LOCATION = "/usr/local/GeoIP/GeoLiteCity.dat";
     private LookupService ls;
     private String srcGeoIpDbFile;
     private String cacheGeoIpDbFile;
@@ -24,14 +24,14 @@ public class CountryCode extends EvalFunc<String> {
     /**
      *
      */
-    public CountryCode() {
+    public GetCityName() {
         this(DEFAULT_DB_LOCATION);
     }
 
     /**
      *
      */
-    public CountryCode(final String DB_FILE) {
+    public GetCityName(final String DB_FILE) {
         this.ls = null;
         this.srcGeoIpDbFile = DB_FILE;
         this.cacheGeoIpDbFile = this.getClass().getSimpleName() + "-slashdevops-GeoDataBase.dat";
@@ -82,9 +82,9 @@ public class CountryCode extends EvalFunc<String> {
 
         // Get geoip information
         try {
-            String result = this.ls.getCountry(address).getCode();
+            String result = this.ls.getLocation(address).city;
 
-            // replace "--" for null, better for pig
+            // replace string "--" from GeoIP DB to null, is better for pig
             if (result == null || result.equals("--") || result.equals("N/A")) {
                 return null;
             } else {
@@ -92,7 +92,7 @@ public class CountryCode extends EvalFunc<String> {
             }
 
         } catch (Exception e) {
-            // e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
