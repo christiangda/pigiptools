@@ -5,7 +5,7 @@
   <artifactId>pigiptools</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <version>1.0.0</version>
-  <description>This is a group of Apache Pig Java UDFs utilities to help us get more productive ours pig scripts</description>
+  <description>This is a group of Apache Pig Java UDFs utilities to help us get more productive ours pig scripts using GeoIP database files, and other Ip  tools</description>
   <url>https://github.com/christiangda/SlashDevOps</url>
   <developers>
     <developer>

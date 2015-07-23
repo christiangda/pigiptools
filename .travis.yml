@@ -1,0 +1,16 @@
+language: java
+
+install: mvn clean test
+
+jdk:
+  - openjdk6
+  - openjdk7
+  - oraclejdk7
+  - oraclejdk8
+
+notifications:
+  email:
+    recipients:
+      - christiangda@gmail.com
+    on_success: change
+    on_failure: always

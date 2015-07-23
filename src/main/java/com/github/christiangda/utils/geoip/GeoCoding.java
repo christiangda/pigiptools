@@ -60,6 +60,8 @@ public class GeoCoding {
     }
 
     /**
+     * Get the code of a country associated with the Ip address
+     *
      * @param IpAddress String Ip Address
      * @return String with Country Name
      */
@@ -77,6 +79,31 @@ public class GeoCoding {
             return this.ls.get("ipv4").getCountry(address).getCode();
         } else if (IP.isValidIPV6(address)) {
             return this.ls.get("ipv6").getCountry(address).getCode();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get the name of a city associated with the Ip address
+     *
+     * @param IpAddress String Ip Address
+     * @return String with City Name
+     */
+    public String getCityName(final String IpAddress) {
+
+        InetAddress address;
+
+        try {
+            address = InetAddress.getByName(IpAddress);
+        } catch (UnknownHostException e) {
+            return null;
+        }
+
+        if (IP.isValidIPV4(address)) {
+            return this.ls.get("ipv4").getLocation(address).city;
+        } else if (IP.isValidIPV6(address)) {
+            return this.ls.get("ipv6").getLocation(address).city;
         } else {
             return null;
         }

@@ -23,17 +23,19 @@ import com.github.christiangda.utils.pigunit.PigUnitUtil;
 import org.apache.pig.pigunit.PigTest;
 import org.junit.Test;
 
-public class GetCountryNameTest {
+public class GettingAllIpValidationsTest {
 
-    private static final String PIG_SCRIPT = "src/test/resources/scripts/GetCountryName.pig";
+    private static final String PIG_SCRIPT = "src/test/resources/scripts/GettingAllIpValidations.pig";
 
     @Test
     public void testGetCountryNamePigScript() throws Exception {
 
         String[] args = {
                 "LIBRARY_PATH=./target",
-                "IPV4_GEODB_PATH=/usr/share/GeoIP/GeoIP.dat",
-                "IPV6_GEODB_PATH=/usr/share/GeoIP/GeoIPv6.dat"
+                "IPV4_GEOIPDB_COUNTRY_PATH=/usr/share/GeoIP/GeoIP.dat",
+                "IPV6_GEOIPDB_COUNTRY_PATH=/usr/share/GeoIP/GeoIPv6.dat",
+                "IPV4_GEOIPDB_CITY_PATH=/usr/share/GeoIP/GeoLiteCity.dat",
+                "IPV6_GEOIPDB_CITY_PATH=/usr/share/GeoIP/GeoLiteCityv6.dat"
         };
 
         String[] input = {
@@ -48,14 +50,14 @@ public class GetCountryNameTest {
         };
 
         String[] output = {
-                "()",
-                "()",
-                "()",
-                "()",
-                "()",
-                "(United States)",
-                "(United States)",
-                "()"
+                "(null,false,false,false,,,)",
+                "(,false,false,false,,,)",
+                "(192.168.1.256,false,false,false,,,)",
+                "(192.168.1.,false,false,false,,,)",
+                "(192.168.1.192,true,true,false,,,)",
+                "(8.8.8.8,true,true,false,United States,US,Mountain View)",
+                "(2001:4860:4860::8888,true,false,true,United States,US,)",
+                "(2001:4860:4860::8888:,false,false,false,,,)"
         };
 
         PigTest pigTest = PigUnitUtil.createPigTest(PIG_SCRIPT, args);

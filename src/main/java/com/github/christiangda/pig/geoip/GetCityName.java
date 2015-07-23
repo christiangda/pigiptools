@@ -19,6 +19,7 @@
 
 package com.github.christiangda.pig.geoip;
 
+import com.github.christiangda.utils.geoip.GeoCoding;
 import com.maxmind.geoip.LookupService;
 import org.apache.pig.EvalFunc;
 import org.apache.pig.FuncSpec;
@@ -31,29 +32,30 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GetCityName extends EvalFunc<String> {
 
-    private static String DEFAULT_DB_LOCATION = "/usr/local/GeoIP/GeoLiteCity.dat";
-    private LookupService ls;
-    private String srcGeoIpDbFile;
-    private String cacheGeoIpDbFile;
+    private GeoCoding geo;
+    private HashMap<String, String> dbFilesPaths = new HashMap<String, String>();
 
     /**
-     *
+     * @param IPV4DBFilePath String
+     * @param IPV6DBFilePath String
      */
-    public GetCityName() {
-        this(DEFAULT_DB_LOCATION);
-    }
+    public GetCityName(final String IPV4DBFilePath, final String IPV6DBFilePath) {
 
-    /**
-     *
-     */
-    public GetCityName(final String DB_FILE) {
-        this.ls = null;
-        this.srcGeoIpDbFile = DB_FILE;
-        this.cacheGeoIpDbFile = this.getClass().getSimpleName() + "-slashdevops-GeoDataBase.dat";
+        this.dbFilesPaths.put("ipv4", IPV4DBFilePath);
+        this.dbFilesPaths.put("ipv6", IPV6DBFilePath);
+
+        try {
+            this.geo = new GeoCoding(IPV4DBFilePath, IPV4DBFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -67,43 +69,11 @@ public class GetCityName extends EvalFunc<String> {
         // get the value of input
         String strAddress = (String) input.get(0);
 
-        // Validating ip address
-        InetAddress address = null;
-        try {
-            address = InetAddress.getByName(strAddress);
-
-        } catch (UnknownHostException uhe) {
-            // System.err.println(this.getClass().getName() +
-            // "Failed to process IP Address:  " + strAddress + " " +
-            // uhe.getMessage());
-            return null;
-        }
-
-        // create LookupService object
-        if (this.ls == null) {
-            try {
-
-                this.ls = new LookupService(this.cacheGeoIpDbFile, LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE);
-
-            } catch (IOException ioe) {
-                try {
-                    // In local mode dosen't work getCacheFiles(), I don't know
-                    // why, but this fix that.
-                    this.cacheGeoIpDbFile = this.srcGeoIpDbFile;
-
-                    this.ls = new LookupService(this.cacheGeoIpDbFile, LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE);
-
-                } catch (Exception e) {
-                    throw new IOException(this.getClass().getName() + " Unable to open file: " + this.cacheGeoIpDbFile, ioe);
-                }
-            }
-        }
-
         // Get geoip information
         try {
-            String result = this.ls.getLocation(address).city;
+            String result = this.geo.getCityName(strAddress);
 
-            // replace string "--" from GeoIP DB to null, is better for pig
+            // replace "--" and "N/A" to null, better for pig
             if (result == null || result.equals("--") || result.equals("N/A")) {
                 return null;
             } else {
@@ -111,7 +81,7 @@ public class GetCityName extends EvalFunc<String> {
             }
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
             return null;
         }
     }
@@ -126,7 +96,11 @@ public class GetCityName extends EvalFunc<String> {
     @Override
     public final List<String> getCacheFiles() {
         List<String> cacheFiles = new ArrayList<String>();
-        cacheFiles.add(this.srcGeoIpDbFile + "#" + this.cacheGeoIpDbFile);
+
+        //iterate over this.dbFilesPaths, to put file in cache
+        for (Map.Entry<String, String> entry : this.dbFilesPaths.entrySet()) {
+            cacheFiles.add(entry.getValue() + "#" + entry.getValue());
+        }
         return cacheFiles;
     }
 }
