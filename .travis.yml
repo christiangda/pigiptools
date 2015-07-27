@@ -25,6 +25,7 @@ before_install:
   - sudo chmod 700 ~/.gnupg
   - sudo gpg --list-key
   - sudo chown -R travis.travis ~/.gnupg
+  - gpg --allow-secret-key-import --import $GPG_KEY
 
 install:
   - mvn install
