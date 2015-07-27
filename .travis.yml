@@ -25,7 +25,6 @@ before_install:
   - sudo gpg --list-key
   - sudo gpg --default-key $GPG_KEY
   - sudo cat ~/.gnupg/gpg.conf
-  - sudo echo "default-key $GPG_KEY" >> ~/.gnupg/gpg.conf
 
 install:
   - mvn install
