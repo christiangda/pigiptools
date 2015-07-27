@@ -21,7 +21,7 @@ before_install:
   - sudo rm -rf ~/.gnupg
   - sudo gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 9F4A8457
   - sudo gpg2 -a --export 9F4A8457 | sudo apt-key add -
-  - sudo chmod -R 700 ~/
+  - sudo chmod -R 600 ~/
   - sudo chown -R travis:travis ~/
 
 install:
