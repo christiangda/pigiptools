@@ -26,6 +26,7 @@ before_install:
   - sudo gpg --list-key
   - echo "deafult-key $GPG_KEY" | sudo tee --append ~/.gnupg/gpg.conf
   - sudo cat ~/.gnupg/gpg.conf
+  - sudo chown -R travis.travis ~/.gnupg
 
 install:
   - mvn install
