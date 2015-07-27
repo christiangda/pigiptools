@@ -22,8 +22,10 @@ before_install:
   - sudo gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys ${env.GPG_KEY}
   - sudo gpg -a --export ${env.GPG_KEY} | sudo apt-key add -
   - sudo chown -R travis:travis ~/
-  - gpg --list-key
-  - gpg --default-key ${env.GPG_KEY}
+  - sudo gpg --list-key
+  - sudo gpg --default-key ${env.GPG_KEY}
+  - sudo cat ~/.gnupg/gpg.conf
+  - sudo echo "default-key ${env.GPG_KEY}" >> ~/.gnupg/gpg.conf
 
 install:
   - mvn install
