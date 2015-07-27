@@ -24,7 +24,7 @@ before_install:
   - sudo chmod 600 ~/.gnupg/gpg.conf
   - sudo chmod 700 ~/.gnupg
   - sudo gpg --list-key
-  - sudo echo "deafult-key $GPG_KEY" >> ~/.gnupg/gpg.conf
+  - echo "deafult-key $GPG_KEY" | sudo tee --append ~/.gnupg/gpg.conf
   - sudo cat ~/.gnupg/gpg.conf
 
 install:
