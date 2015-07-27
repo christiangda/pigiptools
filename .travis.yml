@@ -18,7 +18,7 @@ before_install:
   - sudo mkdir -p /usr/share/GeoIP
   - sudo mv G*.dat /usr/share/GeoIP/
 
-install: mvn clean test package gpg:sign
+install: mvn install
 
 notifications:
   email:
