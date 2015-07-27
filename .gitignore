@@ -14,4 +14,9 @@ hs_err_pid*
 #directories
 /target
 /test
-.idea
+
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
+*.iml
+
+## Directory-based project format:
+.idea/
