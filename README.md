@@ -70,4 +70,4 @@ Bug fixes, features, and documentation improvements are welcome! Please fork the
 ## Contributors
 Major contributors are listed below. Lots of others have helped too, thanks to all of them!
 See git logs for credits.
-* Christian González ([@christiangda](https://twitter.com/christiangda))
+- Christian González ([@christiangda](https://twitter.com/christiangda))
