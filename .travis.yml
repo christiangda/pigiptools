@@ -19,10 +19,11 @@ before_install:
   - sudo mkdir -p /usr/share/GeoIP
   - sudo mv G*.dat /usr/share/GeoIP/
   - sudo rm -rf ~/.gnupg
-  - sudo gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 9F4A8457
-  - sudo gpg -a --export 9F4A8457 | sudo apt-key add -
+  - sudo gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys ${env.GPG_KEY}
+  - sudo gpg -a --export ${env.GPG_KEY} | sudo apt-key add -
   - sudo chown -R travis:travis ~/
   - gpg --list-key
+  - gpg --default-key ${env.GPG_KEY}
 
 install:
   - mvn install
