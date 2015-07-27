@@ -26,7 +26,7 @@ install:
   - mvn install
 
 after_success:
-  - echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
+  - echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers><profiles><profile><id>gpg</id><properties><gpg.passphrase>${env.GPG_PASS}</gpg.passphrase><gpg.keyname>${env.GPG_KEY}</gpg.keyname></properties></profile></profiles></settings>" > ~/settings.xml
   - mvn deploy --settings ~/settings.xml
 
 notifications:
