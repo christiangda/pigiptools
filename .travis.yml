@@ -18,7 +18,7 @@ before_install:
   - sudo mkdir -p /usr/share/GeoIP
   - sudo mv G*.dat /usr/share/GeoIP/
 
-install: mvn clean test
+install: clean test package gpg:sign
 
 notifications:
   email:
@@ -26,3 +26,7 @@ notifications:
       - christiangda@gmail.com
     on_success: change
     on_failure: always
+
+after_success:
+  - echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
+  - mvn deploy --settings ~/settings.xml
