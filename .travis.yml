@@ -18,7 +18,6 @@ before_install:
   - gunzip GeoLiteCityv6.dat.gz
   - sudo mkdir -p /usr/share/GeoIP
   - sudo mv G*.dat /usr/share/GeoIP/
-  - cd ~
 
 install: mvn clean test
 
