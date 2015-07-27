@@ -1,4 +1,5 @@
 language: java
+sudo: false
 
 jdk:
   - openjdk6
@@ -23,7 +24,11 @@ before_install:
   - sudo gpg2 -a --export 9F4A8457 | sudo apt-key add -
 
 install:
-  - sudo mvn install
+  - mvn install
+
+after_success:
+  - sudo echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
+  - sudo mvn deploy --settings ~/settings.xml
 
 notifications:
   email:
@@ -31,7 +36,3 @@ notifications:
       - christiangda@gmail.com
     on_success: change
     on_failure: always
-
-after_success:
-  - sudo echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
-  - sudo mvn deploy --settings ~/settings.xml
