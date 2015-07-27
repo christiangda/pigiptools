@@ -22,6 +22,8 @@ before_install:
   - sudo gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys $GPG_KEY
   - sudo gpg -a --export $GPG_KEY | sudo apt-key add -
   - sudo chown -R travis:travis ~/
+  - sudo chmod 600 ~/.gnupg/gpg.conf
+  - sudo chmod 700 ~/.gnupg
   - sudo gpg --list-key
   - sudo gpg --default-key $GPG_KEY
   - sudo cat ~/.gnupg/gpg.conf
