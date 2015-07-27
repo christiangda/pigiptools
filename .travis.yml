@@ -1,12 +1,26 @@
 language: java
 
-install: mvn clean test
-
 jdk:
   - openjdk6
   - openjdk7
   - oraclejdk7
   - oraclejdk8
+
+before_install:
+  - sudo apt-get update -qq
+  - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+  - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+  - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+  - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoLiteCityv6-beta/GeoLiteCityv6.dat.gz
+  - tar zxf GeoIP.dat.gz
+  - tar zxf GeoIPv6.dat.gz
+  - tar zxf GeoLiteCity.dat.gz
+  - tar zxf GeoLiteCityv6.dat.gz
+  - mkdir -p /usr/share/GeoIP
+  - mv G*.dat /usr/share/GeoIP/
+  - cd ~
+
+install: mvn clean test
 
 notifications:
   email:
