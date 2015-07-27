@@ -12,10 +12,10 @@ before_install:
   - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
   - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
   - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoLiteCityv6-beta/GeoLiteCityv6.dat.gz
-  - tar zxf GeoIP.dat.gz
-  - tar zxf GeoIPv6.dat.gz
-  - tar zxf GeoLiteCity.dat.gz
-  - tar zxf GeoLiteCityv6.dat.gz
+  - gunzip GeoIP.dat.gz
+  - gunzip GeoIPv6.dat.gz
+  - gunzip GeoLiteCity.dat.gz
+  - gunzip GeoLiteCityv6.dat.gz
   - mkdir -p /usr/share/GeoIP
   - mv G*.dat /usr/share/GeoIP/
   - cd ~
