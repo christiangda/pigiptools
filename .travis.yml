@@ -22,7 +22,8 @@ before_install:
   - sudo gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 9F4A8457
   - sudo gpg2 -a --export 9F4A8457 | sudo apt-key add -
 
-install: mvn install
+install:
+  - sudo mvn install
 
 notifications:
   email:
@@ -32,5 +33,5 @@ notifications:
     on_failure: always
 
 after_success:
-  - echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
-  - mvn deploy --settings ~/settings.xml
+  - sudo echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
+  - sudo mvn deploy --settings ~/settings.xml
