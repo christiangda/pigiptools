@@ -24,8 +24,6 @@ before_install:
   - sudo chmod 600 ~/.gnupg/gpg.conf
   - sudo chmod 700 ~/.gnupg
   - sudo gpg --list-key
-  - echo "deafult-key $GPG_KEY" | sudo tee --append ~/.gnupg/gpg.conf
-  - sudo cat ~/.gnupg/gpg.conf
   - sudo chown -R travis.travis ~/.gnupg
 
 install:
