@@ -7,8 +7,8 @@ jdk:
   - oraclejdk7
 
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq gnupg2
+  - apt-get update -qq
+  - apt-get install -qq gnupg2
   - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
   - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
   - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
@@ -17,18 +17,18 @@ before_install:
   - gunzip GeoIPv6.dat.gz
   - gunzip GeoLiteCity.dat.gz
   - gunzip GeoLiteCityv6.dat.gz
-  - sudo mkdir -p /usr/share/GeoIP
-  - sudo mv G*.dat /usr/share/GeoIP/
-  - sudo rm -rf ~/.gnupg
-  - sudo gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 9F4A8457
-  - sudo gpg2 -a --export 9F4A8457 | sudo apt-key add -
+  - mkdir -p /usr/share/GeoIP
+  - mv G*.dat /usr/share/GeoIP/
+  - rm -rf ~/.gnupg
+  - gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 9F4A8457
+  - gpg2 -a --export 9F4A8457 | sudo apt-key add -
 
 install:
   - mvn install
 
 after_success:
-  - sudo echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
-  - sudo mvn deploy --settings ~/settings.xml
+  - echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
+  - mvn deploy --settings ~/settings.xml
 
 notifications:
   email:
