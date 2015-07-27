@@ -7,6 +7,7 @@ jdk:
 
 before_install:
   - sudo apt-get update -qq
+  - sudo apt-get install -qq gnupg2
   - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
   - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
   - wget -nv http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
