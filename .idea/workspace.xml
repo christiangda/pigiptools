@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ec373ea-026d-48ae-bd8b-96f22b14db72" name="Default" comment="fixed problem  in .travis.yml">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+    <list default="true" id="7ec373ea-026d-48ae-bd8b-96f22b14db72" name="Default" comment="added new ignore the idea project folder">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SlashDevOpsPigGeoIP.iws" />
@@ -777,7 +776,13 @@
       <option name="project" value="LOCAL" />
       <updated>1438030615628</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="added new ignore the idea project folder">
+      <created>1438030856661</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1438030856661</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -791,7 +796,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1023" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960895" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -872,7 +877,8 @@
     <MESSAGE value="Merge branch 'master' of github.com:christiangda/pigiptools&#10;" />
     <MESSAGE value="Big changest, a lot of refactor code and clean.  generate the jar package  with dependencies" />
     <MESSAGE value="fixed problem  in .travis.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed problem  in .travis.yml" />
+    <MESSAGE value="added new ignore the idea project folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="added new ignore the idea project folder" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
