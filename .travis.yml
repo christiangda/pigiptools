@@ -19,19 +19,19 @@ before_install:
   - sudo mkdir -p /usr/share/GeoIP
   - sudo mv G*.dat /usr/share/GeoIP/
   - sudo rm -rf ~/.gnupg
-  - sudo gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys ${env.GPG_KEY}
-  - sudo gpg -a --export ${env.GPG_KEY} | sudo apt-key add -
+  - sudo gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys $GPG_KEY
+  - sudo gpg -a --export $GPG_KEY | sudo apt-key add -
   - sudo chown -R travis:travis ~/
   - sudo gpg --list-key
-  - sudo gpg --default-key ${env.GPG_KEY}
+  - sudo gpg --default-key $GPG_KEY
   - sudo cat ~/.gnupg/gpg.conf
-  - sudo echo "default-key ${env.GPG_KEY}" >> ~/.gnupg/gpg.conf
+  - sudo echo "default-key $GPG_KEY" >> ~/.gnupg/gpg.conf
 
 install:
   - mvn install
 
 after_success:
-  - echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers><profiles><profile><id>gpg</id><properties><gpg.passphrase>${env.GPG_PASS}</gpg.passphrase><gpg.keyname>${env.GPG_KEY}</gpg.keyname></properties></profile></profiles></settings>" > ~/settings.xml
+  - echo "<settings><servers><server><id>ossrh</id><username>\$OSSRH_USER</username><password>\$OSSRH_PASS</password></server></servers><profiles><profile><id>gpg</id><properties><gpg.passphrase>$GPG_PASS</gpg.passphrase><gpg.keyname>$GPG_KEY</gpg.keyname></properties></profile></profiles></settings>" > ~/settings.xml
   - mvn deploy --settings ~/settings.xml
 
 notifications:
