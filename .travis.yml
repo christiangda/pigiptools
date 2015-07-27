@@ -18,8 +18,9 @@ before_install:
   - gunzip GeoLiteCityv6.dat.gz
   - sudo mkdir -p /usr/share/GeoIP
   - sudo mv G*.dat /usr/share/GeoIP/
-  - gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 9F4A8457
-  - gpg2 -a --export 9F4A8457 | sudo apt-key add -
+  - sudo rm -rf ~/.gnupg
+  - sudo gpg2 --keyserver hkp://pool.sks-keyservers.net --recv-keys 9F4A8457
+  - sudo gpg2 -a --export 9F4A8457 | sudo apt-key add -
 
 install: mvn install
 
