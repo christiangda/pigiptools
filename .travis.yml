@@ -28,7 +28,7 @@ before_install:
   - sudo chown -R travis.travis ~/.gnupg
 
 install:
-  - mvn install
+  - mvn verify gpg:sign install
 
 after_success:
   - echo "<settings>" > ~/settings.xml
