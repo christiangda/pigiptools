@@ -31,7 +31,22 @@ install:
   - mvn install
 
 after_success:
-  - echo "<settings><servers><server><id>ossrh</id><username>\$OSSRH_USER</username><password>\$OSSRH_PASS</password></server></servers><profiles><profile><id>gpg</id><properties><gpg.passphrase>$GPG_PASS</gpg.passphrase><gpg.keyname>$GPG_KEY</gpg.keyname></properties></profile></profiles></settings>" > ~/settings.xml
+  - echo "<settings>" > ~/settings.xml
+  - echo "<servers><server>" >> ~/settings.xml
+  - echo "    <id>ossrh</id>" >> ~/settings.xml
+  - echo "    <username>\$OSSRH_USER</username>" >> ~/settings.xml
+  - echo "    <password>\$OSSRH_PASS</password>" >> ~/settings.xml
+  - echo "</server></servers>" >> ~/settings.xml
+  - echo "<profiles><profile>" >> ~/settings.xml
+  - echo "    <id>gpg</id>" >> ~/settings.xml
+  - echo "<properties>" >> ~/settings.xml
+  - echo "    <gpg.passphrase>\$GPG_PASS</gpg.passphrase>" >> ~/settings.xml
+  - echo "    <gpg.keyname>\$GPG_KEY</gpg.keyname>" >> ~/settings.xml
+  - echo "    <gpg.useagent>true</gpg.useagent>" >> ~/settings.xml
+  - echo "</properties> >> ~/settings.xml
+  - echo "</profile></profiles>" >> ~/settings.xml
+  - echo "</settings>" >> ~/settings.xml
+  - cat ~/settings.xml
   - mvn deploy --settings ~/settings.xml
 
 notifications:
