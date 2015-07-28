@@ -4,7 +4,6 @@
 This is a group of Apache Pig Java UDFs utilities to help us get more productive ours Pig Latin Scripts, using [GeoIP database files](http://dev.maxmind.com/geoip/legacy/downloadable/), and other [Java Ip tools](http://docs.oracle.com/javase/7/docs/api/java/net/InetAddress.html)
 
 ## License
-
 [The GNU General Public License v3.0](http://www.gnu.org/licenses/gpl-3.0.en.html).
 
 ## Quickstart
@@ -45,23 +44,29 @@ From time to time we may also deploy snapshot releases to the Sonatype OSS [snap
 
 ## Build yourself
 if you want to build it yourself, remember to have the following tools
-- Apache Maven 3.3.3 o higher
-- Java 6 or 7 (OpenJDK  or Oracle version)
+- Apache Maven 3.3.3 o higher (recommended)
+- Java 6, 7 and 8 (OpenJDK  or Oracle version)
+- Internet Connection! (of course)
 
 The procedure is the following
 ```bash
 git clone https://github.com/christiangda/pigiptools.git pigiptools
 cd pigiptools/
-mvn -Dpgp.skip-true clean test package
 
-# Your pigiptools-xx.y.z.jar is in:
+# Recommended
+mvn clean test package
+
+# No testing
+mvn -DskipTests clean package
+
+# Your pigiptools-x.y.z.jar is in:
 ls target/
 ```
 
 ## Version compatibility
 - Hadoop 2.x
 - Pig 0.9+
-- AWS EMR (pig-0.12.0 and Hadoop-2.4.0)
+- AWS EMR (pig-0.12.0, Hadoop-2.4.0 and S3)
 
 ## How To Contribute
 Bug fixes, features, and documentation improvements are welcome! Please fork the project and send us a pull request on github.
