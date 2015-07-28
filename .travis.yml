@@ -6,6 +6,11 @@ jdk:
   - oraclejdk7
   - oraclejdk8
 
+# whitelist
+branches:
+  only:
+    - master
+
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq gnupg2
@@ -20,7 +25,8 @@ before_install:
   - sudo mkdir -p /usr/share/GeoIP
   - sudo mv G*.dat /usr/share/GeoIP/
 
-install:
+script:
+  - echo ============ Build and test =====================
   - mvn -Dpgp.skip-true clean test
 
 notifications:

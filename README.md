@@ -40,8 +40,8 @@ STORE ips INTO 'output' USING PigStorage();
 ```
 
 ## Maven repository (Download)
-PigIpTools release artifacts are published to the [Sonatype OSS](https://oss.sonatype.org/) [releases repository](https://oss.sonatype.org/content/repositories/releases/) and promoted from there to [Maven Central](http://search.maven.org/).
-From time to time we may also deploy snapshot releases to the Sonatype OSS [snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/).
+PigIpTools release artifacts are published to the [Sonatype OSS](https://oss.sonatype.org/) [releases repository](https://oss.sonatype.org/service/local/staging/deploy/maven2) and promoted from there to [Maven Central](http://search.maven.org/).
+From time to time we may also deploy snapshot releases to the Sonatype OSS [snapshots repository](https://oss.sonatype.org/content/repositories/snapshots).
 
 ## Build yourself
 if you want to build it yourself, remember to have the following tools
