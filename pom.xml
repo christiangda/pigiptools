@@ -52,7 +52,7 @@
         <connection>scm:git:git@github.com:christiangda/pigiptools.git</connection>
         <developerConnection>scm:git:git@github.com:christiangda/pigiptools.git</developerConnection>
         <url>git@github.com:christiangda/pigiptools.git</url>
-      <tag>HEAD</tag>
+      <tag>develop</tag>
   </scm>
 
     <properties>
