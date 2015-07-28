@@ -40,13 +40,7 @@ public final class IP {
             return false;
         }
 
-        try {
-            InetAddress ia = InetAddress.getByName(ip);
-            return InetAddressUtils.isIPv4Address(ia.getHostAddress()) || InetAddressUtils.isIPv6Address(ia.getHostAddress());
-        } catch (UnknownHostException e) {
-            //e.printStackTrace();
-            return false;
-        }
+        return InetAddressUtils.isIPv4Address(ip) || InetAddressUtils.isIPv6Address(ip);
     }
 
     /**
@@ -70,13 +64,7 @@ public final class IP {
             return false;
         }
 
-        try {
-            InetAddress ia = InetAddress.getByName(ip);
-            return InetAddressUtils.isIPv4Address(ia.getHostAddress());
-        } catch (UnknownHostException e) {
-            //e.printStackTrace();
-            return false;
-        }
+        return InetAddressUtils.isIPv4Address(ip);
     }
 
     /**
@@ -87,6 +75,7 @@ public final class IP {
         if (ip == null) {
             return false;
         }
+
         return InetAddressUtils.isIPv4Address(ip.getHostAddress());
     }
 
@@ -103,13 +92,7 @@ public final class IP {
             return false;
         }
 
-        try {
-            InetAddress ia = InetAddress.getByName(ip);
-            return InetAddressUtils.isIPv6Address(ia.getHostAddress());
-        } catch (UnknownHostException e) {
-            //e.printStackTrace();
-            return false;
-        }
+        return InetAddressUtils.isIPv6Address(ip);
     }
 
     /**

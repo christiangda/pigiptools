@@ -47,13 +47,12 @@ From time to time we may also deploy snapshot releases to the Sonatype OSS [snap
 if you want to build it yourself, remember to have the following tools
 - Apache Maven 3.3.3 o higher
 - Java 6 or 7 (OpenJDK  or Oracle version)
-- NOTE: Java version 8 is not supported yet, mvn test fail!
 
 The procedure is the following
 ```bash
 git clone https://github.com/christiangda/pigiptools.git pigiptools
 cd pigiptools/
-mvn clean test package
+mvn -Dpgp.skip-true clean test package
 
 # Your pigiptools-xx.y.z.jar is in:
 ls target/

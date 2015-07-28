@@ -21,9 +21,6 @@ package com.github.christiangda.pig.ip;
 
 import com.github.christiangda.utils.ip.IP;
 import org.apache.pig.FilterFunc;
-import org.apache.pig.PigException;
-import org.apache.pig.backend.executionengine.ExecException;
-import org.apache.pig.data.DataType;
 import org.apache.pig.data.Tuple;
 
 import java.io.IOException;
@@ -38,18 +35,13 @@ public class IsValidIPV6 extends FilterFunc {
         }
 
         String ip;
-        try {
-            Object values = input.get(0);
-            if (values instanceof String)
-                ip = (String) values;
-            else {
-                int errCode = 2102;
-                String msg = "Cannot test a " + DataType.findTypeName(values) + " for a valid ip string.";
-                throw new ExecException(msg, errCode, PigException.BUG);
-            }
-        } catch (ExecException ee) {
-            throw ee;
+        Object values = input.get(0);
+        if (values instanceof String)
+            ip = (String) values;
+        else {
+            return false;
         }
+
         return IP.isValidIPV6(ip);
     }
 }
