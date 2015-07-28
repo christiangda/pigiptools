@@ -27,7 +27,7 @@ before_install:
   - sudo chown -R travis.travis ~/.gnupg
 
 install:
-  - mvn -Dpgp.skip-true install
+  - mvn install
 
 after_success:
   - echo "<settings><servers><server><id>ossrh</id><username>\$OSSRH_USER</username><password>\$OSSRH_PASS</password></server></servers><profiles><profile><id>gpg</id><properties><gpg.passphrase>$GPG_PASS</gpg.passphrase><gpg.keyname>$GPG_KEY</gpg.keyname></properties></profile></profiles></settings>" > ~/settings.xml
