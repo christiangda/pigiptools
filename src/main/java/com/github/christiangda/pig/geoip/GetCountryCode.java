@@ -39,8 +39,10 @@ public class GetCountryCode extends EvalFunc<String> {
     private HashMap<String, String> dbFilesPaths = new HashMap<String, String>();
 
     /**
-     * @param IPV4DBFilePath String
-     * @param IPV6DBFilePath String
+     * Class constructor specifying the two MaxMind Database Files (IPV4 and IPV6)
+     *
+     * @param IPV4DBFilePath Path to the MaxMind GeoIP Database for IPV4
+     * @param IPV6DBFilePath Path to the MaxMind GeoIP Database for IPV6
      */
     public GetCountryCode(final String IPV4DBFilePath, final String IPV6DBFilePath) {
 

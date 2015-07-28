@@ -25,7 +25,6 @@ import org.apache.pig.data.Tuple;
 
 import java.io.IOException;
 
-
 public class IsValidIPV4 extends FilterFunc {
 
     @Override

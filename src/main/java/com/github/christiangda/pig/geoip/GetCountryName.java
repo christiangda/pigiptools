@@ -35,12 +35,16 @@ import java.util.Map;
 
 public class GetCountryName extends EvalFunc<String> {
 
+    /** Value - {@value}, GeoCoding object to uses for get its methods.*/
     private GeoCoding geo;
+
     private HashMap<String, String> dbFilesPaths = new HashMap<String, String>();
 
     /**
-     * @param IPV4DBFilePath String
-     * @param IPV6DBFilePath String
+     * Class constructor specifying the two MaxMind Database Files (IPV4 and IPV6)
+     *
+     * @param IPV4DBFilePath Path to the MaxMind GeoIP Database for IPV4
+     * @param IPV6DBFilePath Path to the MaxMind GeoIP Database for IPV6
      */
     public GetCountryName(final String IPV4DBFilePath, final String IPV6DBFilePath) {
 

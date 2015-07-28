@@ -8,7 +8,7 @@ This is a group of Apache Pig Java UDFs utilities to help us get more productive
 
 ## Quickstart
 This is basically an example of how to use all the functions of the library
-```pig
+```PigLatin
 -- Register PigIpTools library (https://github.com/christiangda/pigiptools)
 REGISTER /usr/local/pig/lib/pigiptools-1.0.0.jar
 
