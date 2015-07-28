@@ -19,35 +19,9 @@ before_install:
   - gunzip GeoLiteCityv6.dat.gz
   - sudo mkdir -p /usr/share/GeoIP
   - sudo mv G*.dat /usr/share/GeoIP/
-  - sudo rm -rf ~/.gnupg
-  - sudo gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys $GPG_KEY
-  - sudo gpg -a --export $GPG_KEY | sudo apt-key add -
-  - sudo chmod 600 ~/.gnupg/gpg.conf
-  - sudo chmod 700 ~/.gnupg
-  - sudo gpg --list-key
-  - sudo chown -R travis.travis ~/.gnupg
 
 install:
-  - mvn verify gpg:sign install
-
-after_success:
-  - echo "<settings>" > ~/settings.xml
-  - echo "<servers><server>" >> ~/settings.xml
-  - echo "    <id>ossrh</id>" >> ~/settings.xml
-  - echo "    <username>\$OSSRH_USER</username>" >> ~/settings.xml
-  - echo "    <password>\$OSSRH_PASS</password>" >> ~/settings.xml
-  - echo "</server></servers>" >> ~/settings.xml
-  - echo "<profiles><profile>" >> ~/settings.xml
-  - echo "    <id>gpg</id>" >> ~/settings.xml
-  - echo "<properties>" >> ~/settings.xml
-  - echo "    <gpg.passphrase>\$GPG_PASS</gpg.passphrase>" >> ~/settings.xml
-  - echo "    <gpg.keyname>\$GPG_KEY</gpg.keyname>" >> ~/settings.xml
-  - echo "    <gpg.useagent>true</gpg.useagent>" >> ~/settings.xml
-  - echo "</properties> >> ~/settings.xml
-  - echo "</profile></profiles>" >> ~/settings.xml
-  - echo "</settings>" >> ~/settings.xml
-  - cat ~/settings.xml
-  - mvn deploy --settings ~/settings.xml
+  - mvn -Dpgp.skip-true clean test
 
 notifications:
   email:
