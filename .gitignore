@@ -17,6 +17,12 @@ hs_err_pid*
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
 *.iml
+.idea/libraries
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
+.idea/workspace.xml
 
-## Directory-based project format:
-.idea/
