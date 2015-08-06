@@ -28,7 +28,7 @@ public class GettingAllIpValidationsTest {
     private static final String PIG_SCRIPT = "src/test/resources/scripts/GettingAllIpValidations.pig";
 
     @Test
-    public void testGetCountryNamePigScript() throws Exception {
+    public void testPigScript() throws Exception {
 
         String[] args = {
                 "LIBRARY_PATH=./target",

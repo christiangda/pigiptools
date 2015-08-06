@@ -1,5 +1,5 @@
 /*
- * UrlEncode.java
+ * Base64Encode.java
  *
  * Copyright (c) 2015  Christian González
  *
@@ -19,7 +19,8 @@
 
 package com.github.christiangda.pig.url;
 
-import org.apache.pig.FilterFunc;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.pig.EvalFunc;
 import org.apache.pig.FuncSpec;
 import org.apache.pig.PigException;
 import org.apache.pig.backend.executionengine.ExecException;
@@ -29,54 +30,52 @@ import org.apache.pig.impl.logicalLayer.FrontendException;
 import org.apache.pig.impl.logicalLayer.schema.Schema;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Encodable extends FilterFunc {
+public class Base64Encode extends EvalFunc<String> {
 
     @Override
-    public Boolean exec(Tuple input) throws IOException {
+    public String exec(Tuple input) throws IOException {
 
-        //
-        if (input == null || input.size() == 0 || input.size() > 2 || input.get(0) == null) {
-            return false;
+        // validate input
+        if (input == null || input.size() == 0 || input.get(0) == null) {
+            return null;
+        }
+
+        if (input.size() > 1){
+            int errCode = 2102;
+            String msg = "Invalid arguments number ";
+            throw new ExecException(msg, errCode, PigException.BUG);
         }
 
         //
-        String url;
-        String enc; // The name of a supported character encoding.
+        String str;
 
         //Validating arguments
         try {
             Object arg0 = input.get(0);
             if (arg0 instanceof String)
-                url = (String) arg0;
+                str = (String) arg0;
             else {
                 int errCode = 2102;
                 String msg = "Invalid data type for argument 0 " + DataType.findTypeName(arg0);
-                throw new ExecException(msg, errCode, PigException.BUG);
-            }
-
-            Object arg1 = input.get(1);
-            if (arg1 instanceof String)
-                enc = (String) arg1;
-            else {
-                int errCode = 2102;
-                String msg = "Invalid data type for argument 1 " + DataType.findTypeName(arg1);
                 throw new ExecException(msg, errCode, PigException.BUG);
             }
         } catch (ExecException ee) {
             throw ee;
         }
 
-        //
-        try {
-            URLEncoder.encode(url, enc);
-            return true;
-        } catch (UnsupportedEncodingException e) {
-            return false;
-        }
+        //decode
+        byte[] byteArray = Base64.encodeBase64(str.getBytes());
+
+        return new String(byteArray);
+    }
+
+    @Override
+    public List<FuncSpec> getArgToFuncMapping() throws FrontendException {
+        List<FuncSpec> funcList = new ArrayList<FuncSpec>();
+        funcList.add(new FuncSpec(this.getClass().getName(), new Schema(new Schema.FieldSchema(null, DataType.CHARARRAY))));
+        return funcList;
     }
 }

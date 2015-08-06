@@ -21,9 +21,15 @@ package com.github.christiangda.pig.ip;
 
 import com.github.christiangda.utils.ip.IP;
 import org.apache.pig.FilterFunc;
+import org.apache.pig.FuncSpec;
+import org.apache.pig.data.DataType;
 import org.apache.pig.data.Tuple;
+import org.apache.pig.impl.logicalLayer.FrontendException;
+import org.apache.pig.impl.logicalLayer.schema.Schema;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IsValidIPV6 extends FilterFunc {
 
