@@ -1,5 +1,5 @@
 /*
- * Base64Decode.java
+ * Decode.java
  *
  * Copyright (c) 2015  Christian González
  *
@@ -19,10 +19,10 @@
 
 package com.github.christiangda.pig.url;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.pig.EvalFunc;
 import org.apache.pig.FuncSpec;
 import org.apache.pig.PigException;
+import org.apache.pig.PigWarning;
 import org.apache.pig.backend.executionengine.ExecException;
 import org.apache.pig.data.DataType;
 import org.apache.pig.data.Tuple;
@@ -30,58 +30,76 @@ import org.apache.pig.impl.logicalLayer.FrontendException;
 import org.apache.pig.impl.logicalLayer.schema.Schema;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Decode a Base64 string.
- * see https://en.wikipedia.org/wiki/Base64
+ * Decodes a application/x-www-form-urlencoded string using a specific encoding scheme. The supplied encoding is used
+ * to determine what characters are represented by any consecutive sequences of the form "%xy".
+ * <p/>
+ * see http://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars
  * <p/>
  * <pre>
  * Example:
  * {@code
  * -- Define function call
- * DEFINE Base64Decode com.github.christiangda.pig.url.Base64Decode();
+ * DEFINE Decode com.github.christiangda.pig.url.Decode();
  *
  * -- input is a TSV of Base64 Encoded strings
  * input = LOAD 'input_file' AS (line:chararray);
- * output = FOREACH input GENERATE Base64Decode(line) AS decoded_string;
+ * output = FOREACH input GENERATE
+ *      Decode(line,'UTF-8') AS decoded_utf8_string,
+ *      Decode(line,'ISO-8859-1') AS decoded_latin1_string;
  * }
  * </pre>
  */
-public class Base64Decode extends EvalFunc<String> {
+public class Decode extends EvalFunc<String> {
 
     @Override
     public String exec(Tuple input) throws IOException {
 
-        // validate input
+        //
         if (input == null || input.size() == 0 || input.get(0) == null) {
             return null;
         }
 
-        if (input.size() > 1) {
-            int errCode = 2102;
-            String msg = "Invalid arguments number ";
-            throw new ExecException(msg, errCode, PigException.BUG);
-        }
+        if (input.size() > 2)
+            throw new ExecException("Wrong number of arguments > 2", PigException.ERROR);
 
         //
-        String str;
+        String url;
+        String enc; // The name of a supported character encoding.
 
         //Validating arguments
-
         Object arg0 = input.get(0);
         if (arg0 instanceof String)
-            str = (String) arg0;
+            url = (String) arg0;
         else {
-            String msg = "Invalid data type for argument " + DataType.findTypeName(arg0);
+            String msg = "Invalid data type for argument 0 " + DataType.findTypeName(arg0);
             throw new ExecException(msg, PigException.ERROR);
         }
 
-        //decode
-        byte[] byteArray = Base64.decodeBase64(str.getBytes());
+        Object arg1 = input.get(1);
+        if (arg1 instanceof String)
+            enc = (String) arg1;
+        else {
+            String msg = "Invalid data type for argument 1 " + DataType.findTypeName(arg1);
+            throw new ExecException(msg, PigException.ERROR);
+        }
 
-        return new String(byteArray);
+        //
+        try {
+            return URLDecoder.decode(url, enc);
+        } catch (UnsupportedEncodingException e) {
+            // We overflowed. Give a warning, but do not throw an
+            // exception.
+            warn(e.toString(), PigWarning.UDF_WARNING_1);
+            // Returning null will indicate to Pig that we failed but
+            // we want to continue execution.
+            return null;
+        }
     }
 
     @Override

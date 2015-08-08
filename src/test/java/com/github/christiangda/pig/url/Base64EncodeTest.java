@@ -34,8 +34,8 @@ public class Base64EncodeTest {
         Tuple tuple = Util.buildTuple(null, "string_value");
         try {
             new Base64Encode().exec(tuple);
-        }catch (Exception e){
-            assertTrue("bad number of arguments return Exception",true);
+        } catch (Exception e) {
+            assertTrue("bad number of arguments return Exception", true);
         }
     }
 

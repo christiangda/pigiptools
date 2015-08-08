@@ -19,7 +19,6 @@
 
 package com.github.christiangda.pig.url;
 
-import com.github.christiangda.pig.geoip.GetCountryName;
 import org.apache.pig.data.Tuple;
 import org.apache.pig.test.Util;
 import org.junit.Test;
@@ -28,18 +27,15 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by christian on 8/6/15.
- */
 public class Base64DecodeTest {
 
     @Test
     public void testBase64DecodeMoreArguments() throws IOException {
-        Tuple tuple = Util.buildTuple(null,"string_value");
+        Tuple tuple = Util.buildTuple(null, "string_value");
         try {
             new Base64Decode().exec(tuple);
-        }catch (Exception e){
-            assertTrue("bad number of arguments return Exception",true);
+        } catch (Exception e) {
+            assertTrue("bad number of arguments return Exception", true);
         }
     }
 

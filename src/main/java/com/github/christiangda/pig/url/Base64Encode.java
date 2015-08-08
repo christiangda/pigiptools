@@ -33,6 +33,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Encode a string using Base64 algorithm.
+ * see https://en.wikipedia.org/wiki/Base64
+ * <p/>
+ * <pre>
+ * Example:
+ * {@code
+ * -- Define function call
+ * DEFINE Base64Encode com.github.christiangda.pig.url.Base64Encode();
+ *
+ * -- input is a TSV of Base64 Encoded strings
+ * input = LOAD 'input_file' AS (line:chararray);
+ * output = FOREACH input GENERATE Base64Encode(line) AS encoded_string;
+ * }
+ * </pre>
+ */
 public class Base64Encode extends EvalFunc<String> {
 
     @Override
@@ -43,7 +59,7 @@ public class Base64Encode extends EvalFunc<String> {
             return null;
         }
 
-        if (input.size() > 1){
+        if (input.size() > 1) {
             int errCode = 2102;
             String msg = "Invalid arguments number ";
             throw new ExecException(msg, errCode, PigException.BUG);
@@ -53,17 +69,13 @@ public class Base64Encode extends EvalFunc<String> {
         String str;
 
         //Validating arguments
-        try {
-            Object arg0 = input.get(0);
-            if (arg0 instanceof String)
-                str = (String) arg0;
-            else {
-                int errCode = 2102;
-                String msg = "Invalid data type for argument 0 " + DataType.findTypeName(arg0);
-                throw new ExecException(msg, errCode, PigException.BUG);
-            }
-        } catch (ExecException ee) {
-            throw ee;
+
+        Object arg0 = input.get(0);
+        if (arg0 instanceof String)
+            str = (String) arg0;
+        else {
+            String msg = "Invalid data type for argument " + DataType.findTypeName(arg0);
+            throw new ExecException(msg, PigException.ERROR);
         }
 
         //decode
