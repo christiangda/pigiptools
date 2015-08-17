@@ -1,16 +1,20 @@
 # PigIpTools [![Build Status](https://travis-ci.org/christiangda/pigiptools.png)](https://travis-ci.org/christiangda/pigiptools)
 
 ## About
-This is a group of Apache Pig Java UDFs utilities to help us get more productive ours Pig Latin Scripts, using [GeoIP database files](http://dev.maxmind.com/geoip/legacy/downloadable/), and other [Java Ip tools](http://docs.oracle.com/javase/7/docs/api/java/net/InetAddress.html)
+This is a group of Apache Pig Java UDFs utilities to help us get more productive ours Pig Latin Scripts, using
+[GeoIP database files](http://dev.maxmind.com/geoip/legacy/downloadable/),
+[Java Ip tools](http://docs.oracle.com/javase/7/docs/api/java/net/InetAddress.html),
+[Java URL Encoder functions](http://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html),
+[Java URL Decoder functions](http://docs.oracle.com/javase/7/docs/api/java/net/URLDecoder.html) And Others!.
 
 ## License
 [The GNU General Public License v3.0](http://www.gnu.org/licenses/gpl-3.0.en.html).
 
 ## Quickstart
-This is basically an example of how to use all the functions of the library
+This is basically an example of how to use all IPs functions of the library
 ```PigLatin
 -- Register PigIpTools library (https://github.com/christiangda/pigiptools)
-REGISTER /usr/local/pig/lib/pigiptools-1.0.0.jar
+REGISTER /usr/local/pig/lib/pigiptools-1.1.0.jar
 
 -- Put aliases to the functions in the library
 DEFINE IsValidIP com.github.christiangda.pig.ip.IsValidIP();
@@ -36,6 +40,40 @@ ips = FOREACH data GENERATE
 
 -- Store our enrichest data
 STORE ips INTO 'output' USING PigStorage();
+```
+
+This is basically an example of how to use all URLs functions of the library
+```PigLatin
+-- Register PigIpTools library (https://github.com/christiangda/pigiptools)
+REGISTER /usr/local/pig/lib/pigiptools-1.1.0.jar
+
+-- Put aliases to the functions in the library
+DEFINE Base64Decode com.github.christiangda.pig.url.Base64Decode();
+DEFINE Base64Encode com.github.christiangda.pig.url.Base64Encode();
+DEFINE DecodeUTF8 com.github.christiangda.pig.url.Decode();
+DEFINE EncodeUTF8 com.github.christiangda.pig.url.Encode();
+DEFINE DecodeLatin1 com.github.christiangda.pig.url.Decode('ISO-8859-1');
+DEFINE EncodeLatin1 com.github.christiangda.pig.url.Encode('ISO-8859-1');
+DEFINE IsDecodable com.github.christiangda.pig.url.IsDecodable();
+DEFINE IsEncodable com.github.christiangda.pig.url.IsEncodable();
+
+-- Load the sample data
+data = LOAD 'input' AS (uri:chararray);
+
+-- Use the library functions to enrich the data
+uris = FOREACH data GENERATE
+    uri                 AS uri,
+    Base64Decode(uri)   AS base_64_decode,
+    Base64Encode(uri)   AS base_64_encode,
+    DecodeUTF8(uri)     AS decode_utf_8,
+    EncodeUTF8(uri)     AS encode_utf_8,
+    DecodeLatin1(uri)   AS decode_latin_1,
+    EncodeLatin1(uri)   AS encode_latin_1,
+    IsDecodable(uri)    AS is_encodable,
+    IsEncodable(uri)    AS is_decodable;
+
+-- Store our enrichest data
+STORE uris INTO 'output' USING PigStorage();
 ```
 
 ## Maven repository (Download)
@@ -64,9 +102,10 @@ ls target/
 ```
 
 ## Version compatibility
-- Hadoop 2.x
+- Hadoop 2.x.y
 - Pig 0.9+
 - AWS EMR (pig-0.12.0, Hadoop-2.4.0 and S3)
+- AWS EMR (pig-0.14.0, Hadoop-2.6.0 and S3)
 
 ## How To Contribute
 Bug fixes, features, and documentation improvements are welcome! Please fork the project and send us a pull request on github.

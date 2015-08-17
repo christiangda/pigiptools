@@ -59,7 +59,6 @@ public class GettingAllIpValidationsTest {
                 "(2001:4860:4860::8888,true,false,true,United States,US,)",
                 "(2001:4860:4860::8888:,false,false,false,,,)"
         };
-
         PigTest pigTest = PigUnitUtil.createPigTest(PIG_SCRIPT, args);
 
         pigTest.assertOutput("data", input, "ips", output);

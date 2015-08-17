@@ -13,7 +13,6 @@ DEFINE EncodeLatin1 com.github.christiangda.pig.url.Encode('ISO-8859-1');
 DEFINE IsDecodable com.github.christiangda.pig.url.IsDecodable();
 DEFINE IsEncodable com.github.christiangda.pig.url.IsEncodable();
 
-
 -- Load the sample data
 data = LOAD 'input' AS (uri:chararray);
 
@@ -30,4 +29,4 @@ uris = FOREACH data GENERATE
     IsEncodable(uri)    AS is_decodable;
 
 -- Store our enrichest data
-STORE urls INTO 'output' USING PigStorage();
+STORE uris INTO 'output' USING PigStorage();
