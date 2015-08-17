@@ -24,7 +24,7 @@
 
     <groupId>com.github.christiangda</groupId>
     <artifactId>pigiptools</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -53,7 +53,7 @@
         <connection>scm:git:git@github.com:christiangda/pigiptools.git</connection>
         <developerConnection>scm:git:git@github.com:christiangda/pigiptools.git</developerConnection>
         <url>git@github.com:christiangda/pigiptools.git</url>
-        <tag>release-1.1.0</tag>
+        <tag>develop</tag>
     </scm>
 
     <properties>
