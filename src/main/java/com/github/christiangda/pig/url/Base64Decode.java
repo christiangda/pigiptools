@@ -65,16 +65,13 @@ public class Base64Decode extends EvalFunc<String> {
         }
 
         if (input.size() > 1) {
-            int errCode = 2102;
-            String msg = "Invalid arguments number ";
-            throw new ExecException(msg, errCode, PigException.BUG);
+            throw new ExecException("Wrong number of arguments > 1", PigException.ERROR);
         }
 
         //
         String str;
 
         //Validating arguments
-
         Object arg0 = input.get(0);
         if (arg0 instanceof String)
             str = (String) arg0;
