@@ -40,9 +40,15 @@ public class Base64EncodeTest {
     }
 
     @Test
-    public void testBase64EncodeNullArg() throws IOException {
+    public void testBase64EncodeNullArgument() throws IOException {
         Tuple tuple = Util.buildTuple();
-        assertNull("null arguments return null", new Base64Encode().exec(tuple));
+        assertNull("null argument return null", new Base64Encode().exec(tuple));
+    }
+
+    @Test
+    public void testBase64EncodeEmptyArgument() throws IOException {
+        Tuple tuple = Util.buildTuple("");
+        assertEquals("empty argument return empty", "",new Base64Encode().exec(tuple));
     }
 
     @Test

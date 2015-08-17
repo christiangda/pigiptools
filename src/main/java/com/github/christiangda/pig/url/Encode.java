@@ -45,17 +45,32 @@ import java.util.List;
  * Example:
  * {@code
  * -- Define function call
- * DEFINE Encode com.github.christiangda.pig.url.Encode();
+ * DEFINE EncodeUTF8 com.github.christiangda.pig.url.Encode();
+ * DEFINE EncodeLatin1 com.github.christiangda.pig.url.Encode('ISO-8859-1');
  *
  * -- input is a TSV of Base64 Encoded strings
  * input = LOAD 'input_file' AS (line:chararray);
  * output = FOREACH input GENERATE
- *      Encode(line,'UTF-8') AS encoded_utf8_string,
- *      Encode(line,'ISO-8859-1') AS encoded_latin1_string;
+ *      EncodeUTF8(line) AS encoded_utf8_string,
+ *      EncodeLatin1(line) AS encoded_latin1_string;
  * }
  * </pre>
  */
 public class Encode extends EvalFunc<String> {
+
+    // Default encoding type
+    private String encoding = "UTF-8";
+
+    public Encode() {
+        this.encoding = "UTF-8";
+    }
+
+    /**
+     * @param encoding Encoding Type
+     */
+    public Encode(final String encoding) {
+        this.encoding = encoding;
+    }
 
     @Override
     public String exec(Tuple input) throws IOException {
@@ -65,12 +80,16 @@ public class Encode extends EvalFunc<String> {
             return null;
         }
 
-        if (input.size() > 2)
-            throw new ExecException("Wrong number of arguments > 2", PigException.ERROR);
+        //
+        if (input.get(0) == "") {
+            return input.get(0).toString();
+        }
+
+        if (input.size() > 1)
+            throw new ExecException("Wrong number of arguments > 1", PigException.ERROR);
 
         //
         String url;
-        String enc; // The name of a supported character encoding.
 
         //Validating arguments
         Object arg0 = input.get(0);
@@ -81,17 +100,9 @@ public class Encode extends EvalFunc<String> {
             throw new ExecException(msg, PigException.ERROR);
         }
 
-        Object arg1 = input.get(1);
-        if (arg1 instanceof String)
-            enc = (String) arg1;
-        else {
-            String msg = "Invalid data type for argument 1 " + DataType.findTypeName(arg1);
-            throw new ExecException(msg, PigException.ERROR);
-        }
-
         //
         try {
-            return URLEncoder.encode(url, enc);
+            return URLEncoder.encode(url, this.encoding);
         } catch (UnsupportedEncodingException e) {
             // We overflowed. Give a warning, but do not throw an
             // exception.

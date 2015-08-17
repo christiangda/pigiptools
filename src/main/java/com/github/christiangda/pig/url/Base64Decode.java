@@ -59,6 +59,11 @@ public class Base64Decode extends EvalFunc<String> {
             return null;
         }
 
+        //
+        if (input.get(0) == "") {
+            return input.get(0).toString();
+        }
+
         if (input.size() > 1) {
             int errCode = 2102;
             String msg = "Invalid arguments number ";

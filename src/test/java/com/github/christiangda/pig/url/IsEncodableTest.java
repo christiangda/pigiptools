@@ -25,29 +25,22 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
 public class IsEncodableTest {
 
     @Test
-    public void testIsEncodableBothArgumentsNull() throws IOException {
-        Tuple tuple = Util.buildTuple(null, null);
-        try {
-            new IsEncodable().exec(tuple);
-        } catch (Exception e) {
-            assertTrue("nulls arguments return Exception", true);
-        }
+    public void testIsEncodableArgumentNull() throws IOException {
+        Tuple tuple = Util.buildTuple();
+        assertFalse("null argument return false", new IsEncodable().exec(tuple));
     }
 
     @Test
-    public void testIsEncodableBothArgumentsEmpty() throws IOException {
-        Tuple tuple = Util.buildTuple("", "");
-        try {
-            new IsEncodable().exec(tuple);
-        } catch (Exception e) {
-            assertTrue("Empty arguments return Exception", true);
-        }
+    public void testIsEncodableArgumentEmpty() throws IOException {
+        Tuple tuple = Util.buildTuple("");
+        assertTrue("empty argument return true", new IsEncodable().exec(tuple));
     }
 
     @Test
@@ -62,7 +55,7 @@ public class IsEncodableTest {
 
     @Test
     public void testIsEncodableGoodParametersOne() throws IOException {
-        Tuple tuple = Util.buildTuple("/93RWRnz9/macwindow/b/?ClickID=79750208804&PubID=226969", "UTF-8");
+        Tuple tuple = Util.buildTuple("/93RWRnz9/macwindow/b/?ClickID=79750208804&PubID=226969");
         assertTrue("Goods arguments return true", new IsEncodable().exec(tuple));
     }
 }

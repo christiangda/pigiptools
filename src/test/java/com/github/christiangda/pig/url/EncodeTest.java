@@ -29,24 +29,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class EncodeTest {
+
+    //
+    private String ALTERNATIVE_ENCODING_TYPE = "ISO-8859-1";
+
     @Test
-    public void testEncodeBothArgumentsNull() throws IOException {
-        Tuple tuple = Util.buildTuple(null, null);
-        try {
-            new Encode().exec(tuple);
-        } catch (Exception e) {
-            assertTrue("nulls arguments return Exception", true);
-        }
+    public void testEncodeArgumentNull() throws IOException {
+        Tuple tuple = Util.buildTuple();
+        assertEquals("null argument return null", null, new Encode().exec(tuple));
     }
 
     @Test
-    public void testEncodeBothArgumentsEmpty() throws IOException {
-        Tuple tuple = Util.buildTuple("", "");
-        try {
-            new Encode().exec(tuple);
-        } catch (Exception e) {
-            assertTrue("Empty arguments return Exception", true);
-        }
+    public void testEncodeArgumentEmpty() throws IOException {
+        Tuple tuple = Util.buildTuple("");
+        assertEquals("empty argument return empty", "", new Encode().exec(tuple));
     }
 
     @Test
@@ -61,7 +57,7 @@ public class EncodeTest {
 
     @Test
     public void testEncodeGoodParametersOne() throws IOException {
-        Tuple tuple = Util.buildTuple("/93RWRnz9/macwindow/b/?ClickID=79750208804&PubID=226969", "UTF-8");
+        Tuple tuple = Util.buildTuple("/93RWRnz9/macwindow/b/?ClickID=79750208804&PubID=226969");
         assertEquals("Goods arguments return the right value", "%2F93RWRnz9%2Fmacwindow%2Fb%2F%3FClickID%3D79750208804%26PubID%3D226969", new Encode().exec(tuple));
     }
 }

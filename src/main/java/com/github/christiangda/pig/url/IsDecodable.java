@@ -51,6 +51,20 @@ import java.net.URLDecoder;
  */
 public class IsDecodable extends FilterFunc {
 
+    // Default encoding type
+    private String encoding = "UTF-8";
+
+    public IsDecodable() {
+        this.encoding = "UTF-8";
+    }
+
+    /**
+     * @param encoding Encoding Type
+     */
+    public IsDecodable(final String encoding) {
+        this.encoding = encoding;
+    }
+
     @Override
     public Boolean exec(Tuple input) throws IOException {
 
@@ -59,12 +73,16 @@ public class IsDecodable extends FilterFunc {
             return false;
         }
 
-        if (input.size() > 2)
-            throw new ExecException("Wrong number of arguments > 2", PigException.ERROR);
+        //
+        if (input.get(0) == "") {
+            return true;
+        }
+
+        if (input.size() > 1)
+            throw new ExecException("Wrong number of arguments > 1", PigException.ERROR);
 
         //
         String url;
-        String enc; // The name of a supported character encoding.
 
         //Validating arguments
         Object arg0 = input.get(0);
@@ -75,17 +93,9 @@ public class IsDecodable extends FilterFunc {
             throw new ExecException(msg, PigException.ERROR);
         }
 
-        Object arg1 = input.get(1);
-        if (arg1 instanceof String)
-            enc = (String) arg1;
-        else {
-            String msg = "Invalid data type for argument 1 " + DataType.findTypeName(arg1);
-            throw new ExecException(msg, PigException.ERROR);
-        }
-
         //
         try {
-            URLDecoder.decode(url, enc);
+            URLDecoder.decode(url, this.encoding);
             return true;
         } catch (UnsupportedEncodingException e) {
             return false;

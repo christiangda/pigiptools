@@ -25,31 +25,21 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by christian on 8/8/15.
- */
 public class IsDecodableTest {
 
     @Test
-    public void testIsDecodableBothArgumentsNull() throws IOException {
-        Tuple tuple = Util.buildTuple(null, null);
-        try {
-            new IsDecodable().exec(tuple);
-        } catch (Exception e) {
-            assertTrue("nulls arguments return Exception", true);
-        }
+    public void testIsDecodableArgumentNull() throws IOException {
+        Tuple tuple = Util.buildTuple();
+        assertFalse("null argument return false", new IsDecodable().exec(tuple));
     }
 
     @Test
-    public void testIsDecodableBothArgumentsEmpty() throws IOException {
-        Tuple tuple = Util.buildTuple("", "");
-        try {
-            new IsDecodable().exec(tuple);
-        } catch (Exception e) {
-            assertTrue("Empty arguments return Exception", true);
-        }
+    public void testIsDecodableArgumentEmpty() throws IOException {
+        Tuple tuple = Util.buildTuple("");
+        assertTrue("empty argument return true", new IsDecodable().exec(tuple));
     }
 
     @Test
@@ -64,7 +54,17 @@ public class IsDecodableTest {
 
     @Test
     public void testIsDecodableGoodParametersOne() throws IOException {
-        Tuple tuple = Util.buildTuple("/93RWRnz9/macwindow/b/?ClickID=79750208804&PubID=226969", "UTF-8");
+        Tuple tuple = Util.buildTuple("/93RWRnz9/macwindow/b/?ClickID=79750208804&PubID=226969");
         assertTrue("good arguments return true", new IsDecodable().exec(tuple));
+    }
+
+    @Test
+    public void testIsDecodableBadParametersOne() throws IOException {
+        Tuple tuple = Util.buildTuple("%0", "UTF-8");
+        try {
+            new IsDecodable().exec(tuple);
+        } catch (Exception e) {
+            assertTrue("Bad number of arguments return Exception", true);
+        }
     }
 }
