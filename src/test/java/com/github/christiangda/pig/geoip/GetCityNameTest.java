@@ -30,8 +30,8 @@ import static org.junit.Assert.assertNull;
 
 public class GetCityNameTest {
 
-    private static String DEFAULT_IPV4_DB_LOCATION = "/usr/share/GeoIP/GeoLiteCity.dat";
-    private static String DEFAULT_IPV6_DB_LOCATION = "/usr/share/GeoIP/GeoLiteCityv6.dat";
+    private String DEFAULT_IPV4_DB_LOCATION = "/usr/share/GeoIP/GeoLiteCity.dat";
+    private String DEFAULT_IPV6_DB_LOCATION = "/usr/share/GeoIP/GeoLiteCityv6.dat";
 
     @Test
     public void testCityNameNull() throws IOException {
