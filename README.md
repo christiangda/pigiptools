@@ -86,8 +86,8 @@ STORE uris INTO 'output' USING PigStorage();
 ```
 
 ## Maven repository (Download)
-PigIpTools release artifacts are published to the [Sonatype OSS](https://oss.sonatype.org/) [releases repository](https://oss.sonatype.org/service/local/staging/deploy/maven2) and promoted from there to [Maven Central](http://search.maven.org/).
-From time to time we may also deploy snapshot releases to the Sonatype OSS [snapshots repository](https://oss.sonatype.org/content/repositories/snapshots).
+PigIpTools release artifacts are published to the [Sonatype OSS](https://oss.sonatype.org/) [releases repository](https://oss.sonatype.org/#nexus-search;quick~pigiptools) and promoted from there to [Maven Central](http://search.maven.org/).
+From time to time we may also deploy snapshot releases to the Sonatype OSS [snapshots repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.christiangda%22%20AND%20a%3A%22pigiptools%22).
 
 ## Build yourself
 if you want to build it yourself, remember to have the following tools
