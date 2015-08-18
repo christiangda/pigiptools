@@ -19,7 +19,6 @@
 
 package com.github.christiangda.pig.url;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.pig.EvalFunc;
 import org.apache.pig.FuncSpec;
 import org.apache.pig.PigException;
@@ -28,6 +27,8 @@ import org.apache.pig.data.DataType;
 import org.apache.pig.data.Tuple;
 import org.apache.pig.impl.logicalLayer.FrontendException;
 import org.apache.pig.impl.logicalLayer.schema.Schema;
+import org.mortbay.jetty.security.B64Code;
+import org.mortbay.util.StringUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ import java.util.List;
 /**
  * Encode a string using Base64 algorithm.
  * see https://en.wikipedia.org/wiki/Base64
- * <p/>
+ * <p>
  * <pre>
  * Example:
  * {@code
@@ -81,9 +82,7 @@ public class Base64Encode extends EvalFunc<String> {
         }
 
         //decode
-        byte[] byteArray = Base64.encodeBase64(str.getBytes());
-
-        return new String(byteArray);
+        return new String(B64Code.encode(str.getBytes(StringUtil.__UTF8)));
     }
 
     @Override

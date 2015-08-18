@@ -19,7 +19,7 @@
 
 package com.github.christiangda.pig.url;
 
-import org.apache.commons.codec.binary.Base64;
+
 import org.apache.pig.EvalFunc;
 import org.apache.pig.FuncSpec;
 import org.apache.pig.PigException;
@@ -28,6 +28,8 @@ import org.apache.pig.data.DataType;
 import org.apache.pig.data.Tuple;
 import org.apache.pig.impl.logicalLayer.FrontendException;
 import org.apache.pig.impl.logicalLayer.schema.Schema;
+import org.mortbay.jetty.security.B64Code;
+import org.mortbay.util.StringUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ import java.util.List;
 /**
  * Decode a Base64 string.
  * see https://en.wikipedia.org/wiki/Base64
- * <p/>
+ * <p>
  * <pre>
  * Example:
  * {@code
@@ -80,10 +82,13 @@ public class Base64Decode extends EvalFunc<String> {
             throw new ExecException(msg, PigException.ERROR);
         }
 
-        //decode
-        byte[] byteArray = Base64.decodeBase64(str.getBytes());
 
-        return new String(byteArray);
+        try {
+            String strDecoded = B64Code.decode(str, StringUtil.__UTF8);
+            return new String(strDecoded);
+        } catch (IllegalArgumentException iae) {
+            return null;
+        }
     }
 
     @Override

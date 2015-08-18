@@ -32,9 +32,9 @@ import java.net.URLEncoder;
 /**
  * Validate if a String is encodable like a application/x-www-form-urlencoded string using a specific encoding scheme. The supplied encoding is used
  * to determine what characters are represented by any consecutive sequences of the form "%xy".
- * <p/>
+ * <p>
  * see http://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars
- * <p/>
+ * <p>
  * <pre>
  * Example:
  * {@code

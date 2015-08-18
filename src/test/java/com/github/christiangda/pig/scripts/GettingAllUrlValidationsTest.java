@@ -35,19 +35,19 @@ public class GettingAllUrlValidationsTest {
         };
 
         String[] input = {
-                null,
+                "testing",
                 "",
                 "a b",
-                "/key=value,key2=value%202",
-                "/93RWRnz9/macwindow/b/?ClickID=79750208804&PubID=226969"
+                "c%20d",
+                "/hey1=valu1&key1=value 2"
         };
 
         String[] output = {
-                "(null,��e,bnVsbA==,null,null,null,null,true,true)",
+                "(testing,,dGVzdGluZw==,testing,testing,testing,testing,true,true)",
                 "(,,,,,,,false,false)",
-                "(a b,i,YSBi,a b,a+b,a b,a+b,true,true)",
-                "(/key=value,key2=value%202,�G�,L2tleT12YWx1ZSxrZXkyPXZhbHVlJTIwMg==,/key=value,key2=value 2,%2Fkey%3Dvalue%2Ckey2%3Dvalue%25202,/key=value,key2=value 2,%2Fkey%3Dvalue%2Ckey2%3Dvalue%25202,true,true)",
-                "(/93RWRnz9/macwindow/b/?ClickID=79750208804&PubID=226969,���Y\u0019����s\b�v�?o��\b,LzkzUldSbno5L21hY3dpbmRvdy9iLz9DbGlja0lEPTc5NzUwMjA4ODA0JlB1YklEPTIyNjk2OQ==,/93RWRnz9/macwindow/b/?ClickID=79750208804&PubID=226969,%2F93RWRnz9%2Fmacwindow%2Fb%2F%3FClickID%3D79750208804%26PubID%3D226969,/93RWRnz9/macwindow/b/?ClickID=79750208804&PubID=226969,%2F93RWRnz9%2Fmacwindow%2Fb%2F%3FClickID%3D79750208804%26PubID%3D226969,true,true)"
+                "(a b,,YSBi,a b,a+b,a b,a+b,true,true)",
+                "(c%20d,,YyUyMGQ=,c d,c%2520d,c d,c%2520d,true,true)",
+                "(/hey1=valu1&key1=value 2,,L2hleTE9dmFsdTEma2V5MT12YWx1ZSAy,/hey1=valu1&key1=value 2,%2Fhey1%3Dvalu1%26key1%3Dvalue+2,/hey1=valu1&key1=value 2,%2Fhey1%3Dvalu1%26key1%3Dvalue+2,true,true)"
         };
 
         PigTest pigTest = PigUnitUtil.createPigTest(PIG_SCRIPT, args);

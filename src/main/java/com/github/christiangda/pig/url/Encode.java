@@ -38,9 +38,9 @@ import java.util.List;
 /**
  * Translates a string into application/x-www-form-urlencoded format using a specific encoding scheme.
  * This method uses the supplied encoding scheme to obtain the bytes for unsafe characters.
- * <p/>
+ * <p>
  * see http://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars
- * <p/>
+ * <p>
  * <pre>
  * Example:
  * {@code
