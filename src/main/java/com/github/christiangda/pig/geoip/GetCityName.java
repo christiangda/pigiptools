@@ -38,8 +38,27 @@ import java.util.Map;
 
 public class GetCityName extends EvalFunc<String> {
 
+    /** Value - {@value}, GeoCoding object to uses for get its methods.*/
     private GeoCoding geo;
+
+    /** value - {@value},      */
     private HashMap<String, String> dbFilesPaths = new HashMap<String, String>();
+
+    /**
+     * Class constructor specifying the two MaxMind Database Files (IPV4 or IPV6)
+     *
+     * @param DBFilePath Path to the MaxMind GeoIP Database for IPV4
+     */
+    public GetCityName(final String DBFilePath) {
+
+        this.dbFilesPaths.put("unknow", DBFilePath);
+
+        try {
+            this.geo = new GeoCoding(DBFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Class constructor specifying the two MaxMind Database Files (IPV4 and IPV6)
@@ -57,7 +76,6 @@ public class GetCityName extends EvalFunc<String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

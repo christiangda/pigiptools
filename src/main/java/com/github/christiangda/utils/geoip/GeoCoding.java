@@ -29,8 +29,22 @@ import java.util.HashMap;
 
 public class GeoCoding {
 
+    /** value - {@value},      */
     private HashMap<String, LookupService> ls = new HashMap<String, LookupService>();
 
+    /**
+     * @param DbFilePath Database File Path, will be IPV4 or IPV6
+     * @throws IOException
+     */
+    public GeoCoding(String DbFilePath) throws IOException {
+        this.ls.put("unknow", new LookupService(DbFilePath, LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE));
+    }
+
+    /**
+     * @param ipv4DbFilePath IPV4 Database File Path
+     * @param ipv6DbFilePath IPV6 Database File Path
+     * @throws IOException
+     */
     public GeoCoding(String ipv4DbFilePath, String ipv6DbFilePath) throws IOException {
         this.ls.put("ipv4", new LookupService(ipv4DbFilePath, LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE));
         this.ls.put("ipv6", new LookupService(ipv6DbFilePath, LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE));
@@ -50,12 +64,16 @@ public class GeoCoding {
             return null;
         }
 
-        if (IP.isValidIPV4(address)) {
-            return this.ls.get("ipv4").getCountry(address).getName();
-        } else if (IP.isValidIPV6(address)) {
-            return this.ls.get("ipv6").getCountry(address).getName();
+        if (this.ls.containsKey("unknow")) {
+            return this.ls.get("unknow").getCountry(address).getName();
         } else {
-            return null;
+            if (IP.isValidIPV4(address)) {
+                return this.ls.get("ipv4").getCountry(address).getName();
+            } else if (IP.isValidIPV6(address)) {
+                return this.ls.get("ipv6").getCountry(address).getName();
+            } else {
+                return null;
+            }
         }
     }
 
@@ -75,12 +93,16 @@ public class GeoCoding {
             return null;
         }
 
-        if (IP.isValidIPV4(address)) {
-            return this.ls.get("ipv4").getCountry(address).getCode();
-        } else if (IP.isValidIPV6(address)) {
-            return this.ls.get("ipv6").getCountry(address).getCode();
+        if (this.ls.containsKey("unknow")) {
+            return this.ls.get("unknow").getCountry(address).getCode();
         } else {
-            return null;
+            if (IP.isValidIPV4(address)) {
+                return this.ls.get("ipv4").getCountry(address).getCode();
+            } else if (IP.isValidIPV6(address)) {
+                return this.ls.get("ipv6").getCountry(address).getCode();
+            } else {
+                return null;
+            }
         }
     }
 
@@ -99,13 +121,16 @@ public class GeoCoding {
         } catch (UnknownHostException e) {
             return null;
         }
-
-        if (IP.isValidIPV4(address)) {
-            return this.ls.get("ipv4").getLocation(address).city;
-        } else if (IP.isValidIPV6(address)) {
-            return this.ls.get("ipv6").getLocation(address).city;
+        if (this.ls.containsKey("unknow")) {
+            return this.ls.get("unknow").getLocation(address).city;
         } else {
-            return null;
+            if (IP.isValidIPV4(address)) {
+                return this.ls.get("ipv4").getLocation(address).city;
+            } else if (IP.isValidIPV6(address)) {
+                return this.ls.get("ipv6").getLocation(address).city;
+            } else {
+                return null;
+            }
         }
     }
 }
