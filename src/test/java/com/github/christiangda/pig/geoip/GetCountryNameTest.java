@@ -78,4 +78,20 @@ public class GetCountryNameTest {
         Tuple tuple = Util.buildTuple("2001:4860:4860::8888");
         assertEquals("Good IPv6 Public Address return a Country Name", "United States", new GetCountryName(DEFAULT_IPV4_DB_LOCATION, DEFAULT_IPV6_DB_LOCATION).exec(tuple));
     }
+
+    //******************************************************************************************************************/
+    @Test
+    public void testGetCountryNameNullv2() throws IOException {
+        Tuple tuple = Util.buildTuple();
+        assertNull("null object return null", new GetCountryName(DEFAULT_IPV4_DB_LOCATION).exec(tuple));
+    }
+
+    @Test
+    public void testGetCountryNameGoodIPv4PublicOnev2() throws IOException {
+        //Test Google DNS IP
+        //https://ipinfo.io/8.8.8.8
+        Tuple tuple = Util.buildTuple("8.8.8.8");
+        assertEquals("Good IPv4 Public Address return a Country Name", "United States", new GetCountryName(DEFAULT_IPV4_DB_LOCATION).exec(tuple));
+    }
+
 }
