@@ -41,6 +41,15 @@ ips = FOREACH data GENERATE
 -- Store our enrichest data
 STORE ips INTO 'output' USING PigStorage();
 ```
+For GeoIP Functions (com.github.christiangda.pig.geoip.*) you have two constructors: e.g.
+If you only want to use IPV4 or IPV6 geocoding you can use the following constructor:
+```
+GetCountryName('IPV4DB') OR GetCountryName('IPV6DB')
+```
+If you want to use both IPV4 and IPV6 geocoding you can can use the following constructor:
+```
+GetCountryName('IPV4DB','IPV6DB')
+```
 
 This is basically an example of how to use all URLs functions of the library
 ```PigLatin
